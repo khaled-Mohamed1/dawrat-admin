@@ -134,7 +134,7 @@ const ActionsDropdown = ({ user, onViewUser, onEditUser, onToggleStatus, onReset
                     />
                     <div className="absolute right-0 top-8 z-20 w-48 bg-card border border-border rounded-md shadow-lg py-1">
                         <button
-                            onClick={() => handleAction(() => onViewUser(user?.id))}
+                            onClick={() => handleAction(() => onViewUser(user?.id, user?.type, user?.profile_id))}
                             className="w-full px-4 py-2 text-left text-sm hover:bg-accent transition-colors flex items-center"
                         >
                             <Icon name="Eye" size={16} className="mr-2" />
@@ -142,7 +142,7 @@ const ActionsDropdown = ({ user, onViewUser, onEditUser, onToggleStatus, onReset
                         </button>
 
                         <button
-                            onClick={() => handleAction(() => onEditUser(user?.id))}
+                            onClick={() => handleAction(() => onEditUser(user?.id, user?.type, user?.profile_id))}
                             className="w-full px-4 py-2 text-left text-sm hover:bg-accent transition-colors flex items-center"
                         >
                             <Icon name="Edit" size={16} className="mr-2" />

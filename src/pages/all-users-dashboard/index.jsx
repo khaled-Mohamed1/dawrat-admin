@@ -125,12 +125,21 @@ const AllUsersDashboard = () => {
         }
     };
 
-    const handleViewUser = (userId) => {
-        navigate(`/user-profile-management?id=${userId}&mode=view`);
+    const handleViewUser = (userId, userType, profileId) => {
+        if(userType === 'student')
+        {
+            navigate(`/student-details/${profileId}`);
+        }else{
+            navigate(`/user-profile-management?id=${userId}&mode=view`);
+        }
     };
 
-    const handleEditUser = (userId) => {
-        navigate(`/user-profile-management?id=${userId}&mode=edit`);
+    const handleEditUser = (userId, userType, profileId) => {
+        if(userType === 'student'){
+            navigate(`/student-details/${studentId}?mode=edit`);
+        }else{
+            navigate(`/user-profile-management?id=${userId}&mode=edit`);
+        }
     };
 
     const handleToggleUserStatus = (user) => {
@@ -184,7 +193,7 @@ const AllUsersDashboard = () => {
         });
     };
 
-const handleDeleteUser = (user) => {
+    const handleDeleteUser = (user) => {
         // This function will be called when the user confirms the action
         const performDelete = async () => {
             try {
@@ -240,40 +249,6 @@ const handleDeleteUser = (user) => {
         });
     };
 
-    const handleBulkAction = (action) => {
-        const selectedUsersList = users?.filter(user => selectedUsers?.includes(user?.id));
-
-        switch (action) {
-            case 'activate':
-                setUsers(prev =>
-                    prev?.map(user =>
-                        selectedUsers?.includes(user?.id)
-                            ? { ...user, status: 'Active' }
-                            : user
-                    )
-                );
-                break;
-            case 'deactivate':
-                setUsers(prev =>
-                    prev?.map(user =>
-                        selectedUsers?.includes(user?.id)
-                            ? { ...user, status: 'Inactive' }
-                            : user
-                    )
-                );
-                break;
-            case 'delete':
-                setUsers(prev =>
-                    prev?.filter(user => !selectedUsers?.includes(user?.id))
-                );
-                break;
-            default:
-                break;
-        }
-
-        setSelectedUsers([]);
-    };
-
     const resetFilters = () => {
         setSearchQuery('');
         setStatusFilter(null);
@@ -309,7 +284,7 @@ const handleDeleteUser = (user) => {
         { label: 'All Roles', value: null },
         { label: 'Student', value: 'student' },
         { label: 'Trainer', value: 'trainer' },
-        { label: 'Center Admin', value: 'center' },
+        { label: 'Center', value: 'center' },
         { label: 'Admin', value: 'admin' },
         { label: 'Super Admin', value: 'super_admin' },
     ];

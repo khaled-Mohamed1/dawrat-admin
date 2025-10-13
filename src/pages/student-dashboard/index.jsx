@@ -8,7 +8,7 @@ import StudentTable from './components/StudentTable';
 import Pagination from '../../components/ui/Pagination';
 import { useDebounce } from '../../hooks/useDebounce';
 import { getStudents } from '../../api/studentService';
-import { toggleUserStatus } from '../../api/userService';
+import { toggleUserStatus, deleteUser } from '../../api/userService';
 import ConfirmationModal from '../../components/ui/ConfirmationModal';
 
 const StudentDashboard = () => {
@@ -57,7 +57,7 @@ const StudentDashboard = () => {
         fetchStudents();
     }, [fetchStudents]);
 
-const handleStatusChange = (student) => {
+    const handleStatusChange = (student) => {
         const isActivating = student.status.toLowerCase() !== 'active';
         const actionText = isActivating ? 'activate' : 'deactivate';
 
@@ -93,6 +93,62 @@ const handleStatusChange = (student) => {
             message: `Are you sure you want to ${actionText} ${student.name}?`,
             onConfirm: () => performToggle(false), // First confirm is always force=false
             user: student,
+        });
+    };
+
+    const handleDeleteStudent = (student) => {
+        // This function will be called when the user confirms the action
+        const performDelete = async () => {
+            try {
+                const response = await deleteUser(student.user_id);
+
+                // If successful, close modal, show success, and refresh the list
+                setConfirmationModal({ isOpen: false });
+                showNotification(response.message, 'success');
+                fetchStudents();
+
+
+            } catch (error) {
+                // Check for the specific 422 error with blocking issues
+                if (error?.status) {
+                    const blockingIssues = error?.data?.data;
+
+                    // Construct a message with a list of the blocking issues
+                    const warningMessage = (
+                        <>
+                            {error.data.message}
+                            <ul className="list-disc list-inside mt-2 text-sm text-left text-red-800">
+                                {blockingIssues.map((issue, index) => <li key={index}>{issue}</li>)}
+                            </ul>
+                        </>
+                    );
+
+                    // Update the modal to show the warning
+                    setConfirmationModal({
+                        isOpen: true,
+                        type: 'warning', // A special type for styling
+                        title: 'Deletion Blocked',
+                        message: warningMessage,
+                        onConfirm: null, // No "Confirm" button needed on a warning
+                        student: student,
+                    });
+                } else {
+                    // Handle other, unexpected errors
+                    setConfirmationModal({ isOpen: false });
+                    showNotification(error?.data?.message || 'An unexpected error occurred.', 'error');
+                }
+            }
+        };
+
+        // --- Initial Modal Setup ---
+        // This sets up the first, simple confirmation modal
+        setConfirmationModal({
+            isOpen: true,
+            type: 'delete-user',
+            title: 'Delete User Account',
+            message: `Are you sure you want to delete ${student.name}? The user will be scheduled for permanent deletion in 90 days.`,
+            onConfirm: performDelete,
+            student: student,
         });
     };
 
@@ -141,6 +197,7 @@ const handleStatusChange = (student) => {
                     onStatusChange={handleStatusChange}
                     onViewDetails={handleViewDetails}
                     onEditStudent={handleEditStudent}
+                    onDeleteStudent={handleDeleteStudent}
                 />
                 
                 {/* Pagination */}

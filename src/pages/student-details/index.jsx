@@ -205,7 +205,9 @@ const StudentDetails = () => {
                         )}
 
                         {activeTab === 'invoices' && (
-                            <InvoicesTab invoices={student?.invoices || []} />
+                            <InvoicesTab
+                                studentId={student?.id}
+                            />
                         )}
                     </div>
                 </div>

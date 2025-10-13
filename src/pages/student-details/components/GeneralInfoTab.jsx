@@ -137,7 +137,7 @@ const handleInputChange = (field, value) => {
                                     options={phoneCodeOptions}
                                     loading={isLoadingCountries}
                                     placeholder="Code"
-                                    className="w-48"
+                                    className="w-20"
                                     searchable={true} // Good for long lists
                                 />
                                 <Input
