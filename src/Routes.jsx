@@ -1,0 +1,46 @@
+import React from "react";
+import { BrowserRouter, Routes as RouterRoutes, Route } from "react-router-dom";
+import ScrollToTop from "components/ScrollToTop";
+import ErrorBoundary from "components/ErrorBoundary";
+import NotFound from "pages/NotFound";
+
+// Component Imports
+import ProtectedRoute from "./components/ProtectedRoute";
+import AIInsightsOverview from './pages/ai-insights-overview';
+import AnalyticalDashboard from './pages/dashboard';
+import AllUsersDashboard from './pages/all-users-dashboard';
+import UserProfileManagement from './pages/user-profile-management';
+import StudentDashboard from './pages/student-dashboard';
+import StudentDetails from './pages/student-details';
+import LoginPage from './pages/login/LoginPage';
+
+const Routes = () => {
+    return (
+        <BrowserRouter>
+            <ErrorBoundary>
+                <ScrollToTop />
+                <RouterRoutes>
+                    {/* Public Route: Login */}
+                    {/* Anyone can access this route. */}
+                    <Route path="/login" element={<LoginPage />} />
+
+                    {/* Protected Routes */}
+                    {/* Only authenticated users can access these routes. */}
+                    <Route element={<ProtectedRoute />}>
+                        <Route path="/" element={<AnalyticalDashboard />} />
+                        <Route path="/dashboard" element={<AnalyticalDashboard />} />
+                        <Route path="/all-users-dashboard" element={<AllUsersDashboard />} />
+                        <Route path="/user-profile-management" element={<UserProfileManagement />} />
+                        <Route path="/student-dashboard" element={<StudentDashboard />} />
+                        <Route path="/student-details/:id" element={<StudentDetails />} />
+                    </Route>
+
+                    {/* Catch-all route for pages that don't exist */}
+                    <Route path="*" element={<NotFound />} />
+                </RouterRoutes>
+            </ErrorBoundary>
+        </BrowserRouter>
+    );
+};
+
+export default Routes;

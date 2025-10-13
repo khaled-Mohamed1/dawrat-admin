@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        /* Core Colors */
+        --color-background: #F8FAFC; /* slate-50 */
+        --color-foreground: #1F2937; /* gray-800 */
+        --color-border: #E5E7EB; /* gray-200 */
+        --color-input: #FFFFFF; /* white */
+        --color-ring: #1E40AF; /* blue-800 */
+
+        /* Card Colors */
+        --color-card: #FFFFFF; /* white */
+        --color-card-foreground: #1F2937; /* gray-800 */
+
+        /* Popover Colors */
+        --color-popover: #FFFFFF; /* white */
+        --color-popover-foreground: #1F2937; /* gray-800 */
+
+        /* Muted Colors */
+        --color-muted: #F3F4F6; /* gray-100 */
+        --color-muted-foreground: #6B7280; /* gray-500 */
+
+        /* Primary Colors */
+        --color-primary: #1E40AF; /* blue-800 */
+        --color-primary-foreground: #FFFFFF; /* white */
+
+        /* Secondary Colors */
+        --color-secondary: #6366F1; /* indigo-500 */
+        --color-secondary-foreground: #FFFFFF; /* white */
+
+        /* Accent Colors */
+        --color-accent: #10B981; /* emerald-500 */
+        --color-accent-foreground: #FFFFFF; /* white */
+
+        /* Success Colors */
+        --color-success: #059669; /* emerald-600 */
+        --color-success-foreground: #FFFFFF; /* white */
+
+        /* Warning Colors */
+        --color-warning: #D97706; /* amber-600 */
+        --color-warning-foreground: #FFFFFF; /* white */
+
+        /* Error/Destructive Colors */
+        --color-error: #DC2626; /* red-600 */
+        --color-error-foreground: #FFFFFF; /* white */
+        --color-destructive: #DC2626; /* red-600 */
+        --color-destructive-foreground: #FFFFFF; /* white */
+
+        /* Surface Color */
+        --color-surface: #FFFFFF; /* white */
+
+        /* Text Colors */
+        --color-text-primary: #1F2937; /* gray-800 */
+        --color-text-secondary: #6B7280; /* gray-500 */
+
+        /* Border Radius */
+        --radius: 0.5rem;
+    }
+
+    .dark {
+        --color-background: #0F172A; /* slate-900 */
+        --color-foreground: #F1F5F9; /* slate-100 */
+        --color-border: #374151; /* gray-700 */
+        --color-input: #1F2937; /* gray-800 */
+        --color-ring: #3B82F6; /* blue-500 */
+
+        --color-card: #1E293B; /* slate-800 */
+        --color-card-foreground: #F1F5F9; /* slate-100 */
+
+        --color-popover: #1E293B; /* slate-800 */
+        --color-popover-foreground: #F1F5F9; /* slate-100 */
+
+        --color-muted: #334155; /* slate-700 */
+        --color-muted-foreground: #94A3B8; /* slate-400 */
+
+        --color-primary: #3B82F6; /* blue-500 */
+        --color-primary-foreground: #FFFFFF; /* white */
+
+        --color-secondary: #6366F1; /* indigo-500 */
+        --color-secondary-foreground: #FFFFFF; /* white */
+
+        --color-accent: #10B981; /* emerald-500 */
+        --color-accent-foreground: #FFFFFF; /* white */
+
+        --color-success: #10B981; /* emerald-500 */
+        --color-success-foreground: #FFFFFF; /* white */
+
+        --color-warning: #F59E0B; /* amber-500 */
+        --color-warning-foreground: #000000; /* black */
+
+        --color-error: #EF4444; /* red-500 */
+        --color-error-foreground: #FFFFFF; /* white */
+        --color-destructive: #EF4444; /* red-500 */
+        --color-destructive-foreground: #FFFFFF; /* white */
+
+        --color-surface: #1E293B; /* slate-800 */
+
+        --color-text-primary: #F1F5F9; /* slate-100 */
+        --color-text-secondary: #94A3B8; /* slate-400 */
+    }
+
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+        font-family: 'Inter', sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Inter', sans-serif;
+    }
+
+    .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+    }
+}
+
+@layer components {
+    /* AI Processing Indicators */
+    .ai-processing {
+        @apply relative;
+    }
+
+    .ai-processing::after {
+        content: '';
+        @apply absolute -top-1 -right-1 w-2 h-2 bg-secondary rounded-full;
+        animation: ai-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes ai-pulse {
+        0%, 100% { opacity: 0.4; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Smart Data Tooltips */
+    .smart-tooltip {
+        @apply opacity-0 invisible transition-all duration-200 ease-out;
+        @apply absolute z-50 px-3 py-2 text-sm bg-popover text-popover-foreground;
+        @apply border border-border rounded-md shadow-lg;
+    }
+
+    .smart-tooltip.visible {
+        @apply opacity-100 visible;
+    }
+
+    /* Micro-Interaction Feedback */
+    .interactive-element {
+        @apply transition-all duration-150 ease-out;
+    }
+
+    .interactive-element:hover {
+        @apply transform scale-102;
+    }
+
+    .interactive-element:active {
+        @apply transform scale-98;
+    }
+
+    /* Progressive Loading Shimmer */
+    .shimmer {
+        @apply relative overflow-hidden bg-muted;
+    }
+
+    .shimmer::after {
+        content: '';
+        @apply absolute inset-0;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        animation: shimmer 1.5s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+
+    /* Contextual Navigation Transitions */
+    .nav-transition {
+        @apply transition-all duration-300 ease-in-out;
+    }
+
+    /* Elevation System */
+    .elevation-1 {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .elevation-2 {
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .elevation-3 {
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    }
+
+    /* Intelligent Color Coding */
+    .confidence-high  {
+        @apply border-l-4 border-l-success;
+    }
+    .confidence-medium  {
+        @apply border-l-4 border-l-warning;
+    }
+    .confidence-low  {
+        @apply border-l-4 border-l-error;
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+        .ai-processing::after,
+        .shimmer::after {
+            animation: none;
+        }
+
+        .interactive-element,
+        .nav-transition,
+        .smart-tooltip {
+            transition: none;
+        }
+    }
+}
