@@ -108,3 +108,25 @@ export const getStudentCourseDemands = async (studentId, page = 1) => {
         throw error;
     }
 };
+
+/**
+ * Fetches a paginated list of a student's invoices.
+ * @param {number|string} studentId - The ID of the student.
+ * @param {object} params - The query parameters.
+ * @param {number} params.page - The page number for pagination.
+ * @param {string} params.search - The search query.
+ * @returns {Promise<object>} The full API response.
+ */
+export const getStudentInvoices = async (studentId, { page = 1, search = '' }) => {
+    try {
+        const params = { page };
+        if (search) {
+            params.search = search;
+        }
+        const response = await apiClient.get(`/admin/students/${studentId}/invoices`, { params });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching student invoices:", error.response?.data || error.message);
+        throw error;
+    }
+};

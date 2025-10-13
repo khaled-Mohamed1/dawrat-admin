@@ -6,7 +6,6 @@ import NotFound from "pages/NotFound";
 
 // Component Imports
 import ProtectedRoute from "./components/ProtectedRoute";
-import AIInsightsOverview from './pages/ai-insights-overview';
 import AnalyticalDashboard from './pages/dashboard';
 import AllUsersDashboard from './pages/all-users-dashboard';
 import UserProfileManagement from './pages/user-profile-management';

@@ -69,10 +69,15 @@ const StudentTable = ({
     isLoading,
     onStatusChange,
     onViewDetails,
-    onEditStudent
+    onEditStudent, onDeleteStudent
 }) => {
     const [showActionMenu, setShowActionMenu] = useState(null);
+    const [isOpen, setIsOpen] = React.useState(false);
 
+    const handleAction = (action) => {
+        setIsOpen(false);
+        action();
+    };
 
     const toggleActionMenu = (studentId) => {
         setShowActionMenu(showActionMenu === studentId ? null : studentId);
@@ -202,8 +207,16 @@ const StudentTable = ({
                                             {student.status === 'Active' ? <Icon name="UserX" size={16} className="mr-2"/> : <Icon name="UserCheck" size={16} className="mr-2"/>}
                                             {student.status === 'Active' ? 'Deactivate' : 'Activate'}
                                             </button>
+                                            <button
+                                                onClick={() => handleAction(() => onDeleteStudent(student))}
+                                                className="w-full px-4 py-2 text-left text-sm hover:bg-accent text-destructive transition-colors flex items-center"
+                                            >
+                                                <Icon name="Trash2" size={16} className="mr-2" />
+                                                Delete Student
+                                            </button>
                                         </div>
                                     )}
+
                                 </td>
                             </tr>
                         ))}
