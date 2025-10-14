@@ -10,13 +10,14 @@ import { useDebounce } from '../../hooks/useDebounce';
 import { getStudents } from '../../api/studentService';
 import { toggleUserStatus, deleteUser } from '../../api/userService';
 import ConfirmationModal from '../../components/ui/ConfirmationModal';
+import ResetPasswordModal from './components/ResetPasswordModal.jsx';
 
 const StudentDashboard = () => {
     const navigate = useNavigate();
     
     const [confirmationModal, setConfirmationModal] = useState({ isOpen: false });
     const [notification, setNotification] = useState({ message: '', type: '' });
-
+    const [resetModalState, setResetModalState] = useState({ isOpen: false, student: null });
 
     // API Data State
     const [students, setStudents] = useState([]);
@@ -152,6 +153,10 @@ const StudentDashboard = () => {
         });
     };
 
+    const handleResetPassword = (student) => {
+        setResetModalState({ isOpen: true, student });
+    };
+
     const handleViewDetails = (studentId) => {
         navigate(`/student-details/${studentId}`);
     };
@@ -198,6 +203,7 @@ const StudentDashboard = () => {
                     onViewDetails={handleViewDetails}
                     onEditStudent={handleEditStudent}
                     onDeleteStudent={handleDeleteStudent}
+                    onResetPassword={handleResetPassword}
                 />
                 
                 {/* Pagination */}
@@ -210,6 +216,13 @@ const StudentDashboard = () => {
                     message={confirmationModal?.message}
                     onConfirm={confirmationModal?.onConfirm}
                     onCancel={() => setConfirmationModal({ isOpen: false })}
+                />
+
+                <ResetPasswordModal
+                    isOpen={resetModalState.isOpen}
+                    student={resetModalState.student}
+                    onClose={() => setResetModalState({ isOpen: false, student: null })}
+                    onSuccess={(message) => showNotification(message, 'success')}
                 />
             </div>
         </DashboardLayout>

@@ -69,7 +69,7 @@ const StudentTable = ({
     isLoading,
     onStatusChange,
     onViewDetails,
-    onEditStudent, onDeleteStudent
+    onEditStudent, onDeleteStudent, onResetPassword
 }) => {
     const [showActionMenu, setShowActionMenu] = useState(null);
     const [isOpen, setIsOpen] = React.useState(false);
@@ -207,6 +207,14 @@ const StudentTable = ({
                                             {student.status === 'Active' ? <Icon name="UserX" size={16} className="mr-2"/> : <Icon name="UserCheck" size={16} className="mr-2"/>}
                                             {student.status === 'Active' ? 'Deactivate' : 'Activate'}
                                             </button>
+                                            <button
+                                                onClick={() => handleAction(() => onResetPassword(student))}
+                                                className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center"
+                                            >
+                                                <Icon name="Key" size={16} className="mr-2" />
+                                                Reset Password
+                                            </button>
+                                            <div className="border-t my-1" />
                                             <button
                                                 onClick={() => handleAction(() => onDeleteStudent(student))}
                                                 className="w-full px-4 py-2 text-left text-sm hover:bg-accent text-destructive transition-colors flex items-center"

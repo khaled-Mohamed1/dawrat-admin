@@ -44,7 +44,6 @@ const AllUsersDashboard = () => {
         setTimeout(() => setNotification({ message: '', type: '' }), 5000);
     };
 
-    // **UPDATED**: This function now opens our new, specialized modal
     const handleResetPassword = (user) => {
         setResetModalState({ isOpen: true, user });
     };

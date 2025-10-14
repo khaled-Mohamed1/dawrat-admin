@@ -60,7 +60,7 @@ const TrainerAvatar = ({ trainer }) => {
     );
 };
 
-const ActionsDropdown = ({ trainer, onViewDetails, onEditTrainer, onStatusChange, onDeleteTrainer }) => {
+const ActionsDropdown = ({ trainer, onViewDetails, onEditTrainer, onStatusChange, onDeleteTrainer, onResetPassword }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleAction = (action) => {
@@ -84,7 +84,15 @@ const ActionsDropdown = ({ trainer, onViewDetails, onEditTrainer, onStatusChange
                                 className="mr-2"
                             />
                             {trainer.status === 'Active' ? 'Deactivate' : 'Activate'}
-                        </button>                        <div className="border-t my-1" />
+                        </button>
+                        <button
+                            onClick={() => handleAction(() => onResetPassword(trainer))}
+                            className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center"
+                        >
+                            <Icon name="Key" size={16} className="mr-2" />
+                            Reset Password
+                        </button>
+                        <div className="border-t my-1" />
                         <button onClick={() => handleAction(() => onDeleteTrainer(trainer))} className="w-full px-4 py-2 text-left text-sm text-destructive hover:bg-accent flex items-center"><Icon name="Trash2" size={16} className="mr-2" />Delete Trainer</button>
                     </div>
                 </>
@@ -100,6 +108,7 @@ const TrainerTable = ({
                           trainers,
                           isLoading,
                           onStatusChange,
+                          onResetPassword,
                           onViewDetails,
                           onEditTrainer,
                           onDeleteTrainer
@@ -201,6 +210,7 @@ const TrainerTable = ({
                                     onViewDetails={onViewDetails}
                                     onEditTrainer={onEditTrainer}
                                     onStatusChange={onStatusChange}
+                                    onResetPassword={onResetPassword}
                                     onDeleteTrainer={onDeleteTrainer}
                                 />
                             </td>

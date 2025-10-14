@@ -10,12 +10,14 @@ import TrainerTable from "./components/TrainerTable.jsx";
 import FilterPanel from './components/FilterPanel';
 import Select from "../../../components/ui/Select.jsx";
 import Button from "../../../components/ui/Button.jsx";
+import ResetPasswordModal from './components/ResetPasswordModal.jsx';
 
 const TrainerDashboard = () => {
     const navigate = useNavigate();
     const [notification, setNotification] = useState({ message: '', type: '' });
     const [isLoading, setIsLoading] = useState(true);
     const [confirmationModal, setConfirmationModal] = useState({ isOpen: false });
+    const [resetModalState, setResetModalState] = useState({ isOpen: false, trainer: null });
 
     const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
 
@@ -154,6 +156,10 @@ const TrainerDashboard = () => {
         }
     };
 
+    const handleResetPassword = (trainer) => {
+        setResetModalState({ isOpen: true, trainer });
+    };
+
     return (
         <DashboardLayout>
             <div className="space-y-6">
@@ -231,6 +237,7 @@ const TrainerDashboard = () => {
                     onViewDetails={handleViewDetails}
                     onEditTrainer={handleEditTrainer}
                     onDeleteTrainer={handleDeleteTrainer}
+                    onResetPassword={handleResetPassword}
                 />
 
                 {/* Pagination */}
@@ -243,6 +250,13 @@ const TrainerDashboard = () => {
                     message={confirmationModal?.message}
                     onConfirm={confirmationModal?.onConfirm}
                     onCancel={() => setConfirmationModal({ isOpen: false })}
+                />
+
+                <ResetPasswordModal
+                    isOpen={resetModalState.isOpen}
+                    trainer={resetModalState.trainer}
+                    onClose={() => setResetModalState({ isOpen: false, trainer: null })}
+                    onSuccess={(message) => showNotification(message, 'success')}
                 />
             </div>
         </DashboardLayout>
