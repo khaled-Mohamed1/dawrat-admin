@@ -47,10 +47,10 @@ const StatusBadge = ({ status }) => {
 };
 
 const UserAvatar = ({ student }) => {
-    if (student.avatar) {
+    if (student.file_url) {
         return (
             <img
-                src={student.avatar}
+                src={student.file_url}
                 alt={student.name}
                 className="w-10 h-10 rounded-full object-cover"
             />

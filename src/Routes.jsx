@@ -10,6 +10,8 @@ import AnalyticalDashboard from './pages/dashboard';
 import AllUsersDashboard from './pages/all-users-dashboard';
 import UserProfileManagement from './pages/user-profile-management';
 import StudentDashboard from './pages/student-dashboard';
+import TrainerDashboard from './pages/trainers/dashboard';
+import TrainerProfile from './pages/trainers/profile';
 import StudentDetails from './pages/student-details';
 import LoginPage from './pages/login/LoginPage';
 
@@ -32,6 +34,8 @@ const Routes = () => {
                         <Route path="/user-profile-management" element={<UserProfileManagement />} />
                         <Route path="/student-dashboard" element={<StudentDashboard />} />
                         <Route path="/student-details/:id" element={<StudentDetails />} />
+                        <Route path="/trainers/dashboard" element={<TrainerDashboard />} />
+                        <Route path="/trainers/details/:id" element={<TrainerProfile />} />
                     </Route>
 
                     {/* Catch-all route for pages that don't exist */}

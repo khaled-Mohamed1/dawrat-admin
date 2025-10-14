@@ -20,7 +20,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
             subItems: [
                 { title: 'All Users', path: '/all-users-dashboard' },
                 { title: 'Students', path: '/student-dashboard' },
-                { title: 'Trainers', path: '/users/trainers' },
+                { title: 'Trainers', path: '/trainers/dashboard' },
                 { title: 'Centers', path: '/users/centers' }
             ]
         },
