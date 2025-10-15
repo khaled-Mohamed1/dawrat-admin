@@ -64,6 +64,23 @@ export const getCourseDetails = async (courseId) => {
 };
 
 /**
+ * Updates an existing course.
+ * @param {number|string} courseId - The ID of the course to update.
+ * @param {object} courseData - The updated data for the course.
+ * @returns {Promise<object>} The API response.
+ */
+export const updateCourse = async (courseId, courseData) => {
+    try {
+
+        const response = await apiClient.put(`/admin/courses/${courseId}`, courseData);
+        return response.data;
+    } catch (error) {
+        console.error("Error updating course:", error.response?.data || error.message);
+        throw error.response?.data || error;
+    }
+};
+
+/**
  * Deletes a specific course.
  * @param {number|string} courseId - The ID of the course to delete.
  * @returns {Promise<object>} The API response.
@@ -169,5 +186,21 @@ export const exportCourses = async (params = {}) => {
     } catch (error) {
         console.error("Error exporting courses:", error);
         throw new Error('Failed to export course data.');
+    }
+};
+
+/**
+ * Deletes a specific review for a course.
+ * @param {number|string} courseId - The ID of the course.
+ * @param {number|string} reviewId - The ID of the review to delete.
+ * @returns {Promise<object>} The API response.
+ */
+export const deleteCourseReview = async (courseId, reviewId) => {
+    try {
+        const response = await apiClient.delete(`/admin/courses/${courseId}/reviews/${reviewId}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error deleting course review:", error.response?.data || error.message);
+        throw error.response?.data || error;
     }
 };

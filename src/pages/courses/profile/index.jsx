@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import DashboardLayout from '../../../components/ui/DashboardLayout';
 import Button from '../../../components/ui/Button';
 import Icon from '../../../components/AppIcon';
 import CourseProfileHeader from './components/CourseProfileHeader';
 import GeneralInfoTab from './components/GeneralInfoTab';
-import { getCourseDetails, reviewCourse } from '../../../api/courseService';
+import { getCourseDetails, reviewCourse, updateCourse  } from '../../../api/courseService';
 import SessionsTab from './components/SessionsTab';
 import EnrollmentsTab from './components/EnrollmentsTab';
 import ReviewsTab from './components/ReviewsTab';
@@ -19,6 +19,13 @@ const CourseDetails = () => {
     const [course, setCourse] = useState(null);
     const [isRejectionModalOpen, setIsRejectionModalOpen] = useState(false);
     const [notification, setNotification] = useState({ message: '', type: '' });
+    const [originalCourse, setOriginalCourse] = useState(null);
+    const [isSaving, setIsSaving] = useState(false);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [hasChanges, setHasChanges] = useState(false);
+    const [generalError, setGeneralError] = useState('');
+
+    const isEditMode = searchParams.get('mode') === 'edit';
 
     const showNotification = (message, type = 'success') => {
         setNotification({ message, type });
@@ -30,7 +37,15 @@ const CourseDetails = () => {
         try {
             const response = await getCourseDetails(id);
             if (response.success) {
-                setCourse(response.data);
+                const courseData = response.data;
+                console.log(courseData)
+                if (courseData.discount_type === 'percentage') {
+                    courseData.discount_type = 'P';
+                } else if (courseData.discount_type === 'fixed') {
+                    courseData.discount_type = 'F';
+                }
+                setCourse(courseData);
+                setOriginalCourse(courseData);
             }
         } catch (error) {
             console.error("Failed to fetch course details", error);
@@ -42,7 +57,59 @@ const CourseDetails = () => {
 
     useEffect(() => {
         fetchCourse();
-    }, [fetchCourse]);
+    }, [id]);
+
+    const handleSave = async () => {
+        setIsSaving(true);
+        setGeneralError('');
+        const formattedSchedules = course.schedules.map(s => ({
+            day: s.day,
+            start_time: s.start_time.slice(0, 5),
+            end_time: s.end_time.slice(0, 5),
+        }));
+        try {
+            const payload = {
+                title: course.title,
+                description: course.description,
+                details: course.details,
+                level: course.level,
+                language: course.language,
+                price: course.price,
+                discount_type: course.discount_type,
+                discount: course.discount,
+                start_date: course.start_date,
+                end_date: course.end_date,
+                duration: course.duration,
+                total_hours: course.total_hours,
+                capacity: course.capacity,
+                session_mode: course.session_mode,
+                address: course.address,
+                category_ids: [course.category_id],
+                schedules: formattedSchedules,
+                draft: 0
+            };
+            await updateCourse(id, payload);
+            setHasChanges(false);
+            setSearchParams({}, { replace: true });
+            fetchCourse();
+            showNotification('Course updated successfully!', 'success');
+        } catch (error) {
+            if (error.status === 422 && error.errors) {
+                setErrors(error.errors);
+                setGeneralError(error.message || 'Please correct the errors below.');
+            } else {
+                setGeneralError(error.message || 'An unexpected error occurred.');
+            }
+        } finally {
+            setIsSaving(false);
+        }
+    };
+
+    const handleCancel = () => {
+        setCourse(originalCourse);
+        setHasChanges(false);
+        setSearchParams({}, { replace: true });
+    };
 
     const handleReview = async (status) => {
         if (status === 'Rejected') {
@@ -124,18 +191,32 @@ const CourseDetails = () => {
                         </Button>
                     </div>
                     <div className="flex items-center gap-3">
-                        {(course.status === 'Pending' || course.status === 'Submitted') && (
+                        {isEditMode ? (
                             <>
-                                <Button variant="destructive" size="sm" onClick={() => handleReview('Rejected')} iconName="XCircle">Reject</Button>
-                                <Button variant="success" size="sm" onClick={() => handleReview('Approved')} iconName="CheckCircle">Approve</Button>
-                                <Button onClick={() => navigate(`/courses/details/${id}?mode=edit`)} iconName="Edit">Edit Course</Button>
+                                <Button variant="outline" onClick={handleCancel}>Cancel</Button>
+                                <Button onClick={handleSave} disabled={!hasChanges || isSaving} iconName={isSaving ? 'Loader' : 'Save'}>
+                                    {isSaving ? 'Saving...' : 'Save Changes'}
+                                </Button>
+                            </>
+                        ) : (
+                            <>
+                                {(course.status === 'Pending' || course.status === 'Submitted') && (
+                                    <>
+                                        <Button variant="destructive" size="sm" onClick={() => handleReview('Rejected')} iconName="XCircle">Reject</Button>
+                                        <Button variant="success" size="sm" onClick={() => handleReview('Approved')} iconName="CheckCircle">Approve</Button>
+                                        <Button onClick={() => setSearchParams({ mode: 'edit' })} iconName="Edit">Edit Course</Button>
+                                    </>
+                                )}
                             </>
                         )}
+
                     </div>
                 </div>
 
                 {/* Profile Header */}
                 <CourseProfileHeader course={course} />
+
+                {generalError && <div className="p-4 rounded-md text-sm bg-red-100 text-red-800">{generalError}</div>}
 
                 {/* Tabs */}
                 <div className="bg-card rounded-lg border overflow-hidden">
@@ -151,7 +232,14 @@ const CourseDetails = () => {
                     </div>
 
                     <div className="p-6">
-                        {activeTab === 'general' && <GeneralInfoTab course={course} />}
+                        {activeTab === 'general' && (
+                            <GeneralInfoTab
+                                course={course}
+                                setCourse={setCourse}
+                                isEditMode={isEditMode}
+                                setHasChanges={setHasChanges}
+                            />
+                        )}
 
                         {activeTab === 'sessions' && (
                             <SessionsTab courseId={course?.id} />

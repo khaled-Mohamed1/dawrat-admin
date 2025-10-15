@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Button from '../../../../components/ui/Button';
 import Icon from '../../../../components/AppIcon';
-import { getCourseReviews } from '../../../../api/courseService';
+import { getCourseReviews, deleteCourseReview  } from '../../../../api/courseService';
+import ConfirmationModal from "../../../../components/ui/ConfirmationModal.jsx";
 
 // Accurate StarRating component that supports half-stars
 const StarRating = ({ rating, size = 16 }) => {
@@ -21,9 +22,12 @@ const StarRating = ({ rating, size = 16 }) => {
 const ReviewsTab = ({ courseId }) => {
     const [reviewsData, setReviewsData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [filterRate, setFilterRate] = useState(''); // Use empty string for "all"
+    const [filterRate, setFilterRate] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const reviewsPerPage = 4;
+    const [notification, setNotification] = useState({ message: '', type: '' });
+
+    const [confirmationModal, setConfirmationModal] = useState({ isOpen: false });
 
     const fetchReviews = useCallback(async () => {
         if (!courseId) return;
@@ -56,10 +60,46 @@ const ReviewsTab = ({ courseId }) => {
         return key.replace('_avg', '').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     };
 
+    const showNotification = (message, type = 'success') => {
+        setNotification({ message, type });
+        setTimeout(() => setNotification({ message: '', type: '' }), 5000);
+    };
+
+    const handleDeleteClick = (review) => {
+        setConfirmationModal({
+            isOpen: true,
+            type: 'delete',
+            title: 'Delete Review',
+            message: `Are you sure you want to delete the review by "${review.name}"? This action cannot be undone.`,
+            onConfirm: async () => {
+                try {
+                    await deleteCourseReview(courseId, review.id);
+                    showNotification('Review deleted successfully!', 'success');
+                } catch (error) {
+                    showNotification('Failed to delete review. Please try again.', 'error');
+                } finally {
+                    setConfirmationModal({ isOpen: false });
+                    fetchReviews();
+                }
+            }
+        });
+    };
+
     return (
         <div className="space-y-8">
+            {notification.message && (
+                <div className={`p-4 rounded-md text-sm ${notification.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                    {notification.message}
+                </div>
+            )}
+
             {isLoading ? (
-                <div className="text-center py-12"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div></div>
+                <div className="flex items-center justify-center">
+                    <div className="text-center">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+                        <p className="text-muted-foreground">Loading details...</p>
+                    </div>
+                </div>
             ) : !reviewsData ? (
                 <div className="text-center py-12"><p className="text-muted-foreground">Could not load reviews data.</p></div>
             ) : (
@@ -124,7 +164,17 @@ const ReviewsTab = ({ courseId }) => {
                                                     <p className="text-xs text-muted-foreground">{new Date(review.created_at).toLocaleString()}</p>
                                                 </div>
                                             </div>
-                                            <StarRating rating={review.final_rating} />
+                                            <div className="flex items-center gap-3">
+                                                <StarRating rating={review.final_rating} />
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="h-8 w-8 text-destructive"
+                                                    onClick={() => handleDeleteClick(review)}
+                                                >
+                                                    <Icon name="Trash2" size={16} />
+                                                </Button>
+                                            </div>
                                         </div>
                                         <p className="text-sm text-muted-foreground mt-3 pl-12 border-l-2 ml-5">{review.comment}</p>
                                     </div>
@@ -144,6 +194,14 @@ const ReviewsTab = ({ courseId }) => {
                     </div>
                 </>
             )}
+            <ConfirmationModal
+                isOpen={confirmationModal.isOpen}
+                type={confirmationModal.type}
+                title={confirmationModal.title}
+                message={confirmationModal.message}
+                onConfirm={confirmationModal.onConfirm}
+                onCancel={() => setConfirmationModal({ isOpen: false })}
+            />
         </div>
     );
 };

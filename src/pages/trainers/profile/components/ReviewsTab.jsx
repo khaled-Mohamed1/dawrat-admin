@@ -168,7 +168,8 @@ const ReviewsTab = ({ trainerId }) => {
                                             <div className="flex items-center gap-3">
                                                 <StarRating rating={review.final_rating} />
                                                 <Button
-                                                    variant="destructive"
+                                                    variant="ghost"
+                                                    className="h-8 w-8 text-destructive"
                                                     size="xs"
                                                     onClick={() => handleDeleteClick(review)}
                                                 >
