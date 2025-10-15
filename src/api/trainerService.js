@@ -263,6 +263,20 @@ export const exportTrainers = async (params = {}) => {
 };
 
 /**
+ * Fetches a simple list of all trainers for filtering.
+ * @returns {Promise<Array>} A promise that resolves to an array of trainer objects.
+ */
+export const getAllTrainers = async () => {
+    try {
+        const response = await apiClient.get('/admin/trainers/all-trainers');
+        return response.data.data || [];
+    } catch (error) {
+        console.error("Error fetching all trainers:", error.response?.data || error.message);
+        return [];
+    }
+};
+
+/**
  * Downloads a subscription invoice for a trainer.
  * @param {number|string} trainerId - The ID of the trainer.
  * @param {number|string} subscriptionId - The ID of the subscription.

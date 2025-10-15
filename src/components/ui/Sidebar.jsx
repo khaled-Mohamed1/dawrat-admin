@@ -29,9 +29,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
             icon: 'BookOpen',
             path: '/courses',
             subItems: [
-                { title: 'All Courses', path: '/courses' },
-                { title: 'Pending Approval', path: '/courses/pending' },
-                { title: 'Published Courses', path: '/courses/published' }
+                { title: 'Courses', path: '/courses/dashboard' },
             ]
         },
         {
@@ -40,7 +38,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
             path: '/subscriptions',
             subItems: [
                 { title: 'Active Subscriptions', path: '/subscriptions/active' },
-                { title: 'Subscription Plans', path: '/subscriptions/plans' },
+                { title: 'Subscription Plans', path: '/subscriptions-plans/dashboard' },
                 { title: 'Billing History', path: '/subscriptions/billing' }
             ]
         },
