@@ -34,7 +34,7 @@ const LoginPage = () => {
             {/* Branding Panel (Left Side) */}
             <div className="hidden lg:flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 p-12 text-white text-center">
                 <div className="mb-6 p-4 rounded-full bg-white/10">
-                    <Icon name="Sparkles" size={48} className="text-white"/>
+                    <img src="/Vector.png" alt="Logo" className="w-20 h-20 object-contain" />
                 </div>
                 <h1 className="text-4xl font-bold mb-3">Modarb Book</h1>
                 <p className="text-lg text-gray-300">

@@ -37,7 +37,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
             icon: 'CreditCard',
             path: '/subscriptions',
             subItems: [
-                { title: 'Active Subscriptions', path: '/subscriptions/active' },
+                { title: 'Subscriptions', path: '/subscriptions/dashboard' },
                 { title: 'Subscription Plans', path: '/subscriptions-plans/dashboard' },
                 { title: 'Billing History', path: '/subscriptions/billing' }
             ]
@@ -62,7 +62,13 @@ const Sidebar = ({ isOpen, onToggle }) => {
             title: 'Settings',
             icon: 'Settings',
             path: '/settings',
-            subItems: []
+            subItems: [
+                { title: 'Roles', path: '/roles/dashboard' },
+                { title: 'Features', path: '/features/dashboard' },
+                { title: 'Categories', path: '/categories/dashboard' },
+                { title: 'Jobs', path: '/jobs/dashboard' },
+                { title: 'Sections', path: '/sections/dashboard' },
+            ]
         }
     ];
 

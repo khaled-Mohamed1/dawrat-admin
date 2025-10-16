@@ -8,21 +8,17 @@ import { useState, useEffect } from 'react';
  * @returns {*} The debounced value.
  */
 export const useDebounce = (value, delay) => {
-    // State to store the debounced value
     const [debouncedValue, setDebouncedValue] = useState(value);
 
     useEffect(() => {
-        // Set up a timer to update the debounced value after the specified delay
         const handler = setTimeout(() => {
             setDebouncedValue(value);
         }, delay);
 
-        // Clean up the timer if the value changes before the delay has passed.
-        // This is the core of the debounce logic. A new timer will be set up above.
         return () => {
             clearTimeout(handler);
         };
-    }, [value, delay]); // Re-run the effect only if the value or delay changes
+    }, [value, delay]);
 
     return debouncedValue;
 };

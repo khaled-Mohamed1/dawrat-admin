@@ -29,7 +29,6 @@ const TrainerDashboard = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const debouncedSearch = useDebounce(filters.search, 500);
-
     // API Data State
     const [trainers, setTrainers] = useState([]);
     const [pagination, setPagination] = useState(null);

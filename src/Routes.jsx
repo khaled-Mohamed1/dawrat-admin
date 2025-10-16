@@ -17,7 +17,17 @@ import TrainerProfile from './pages/trainers/profile';
 import StudentDetails from './pages/student-details';
 import SubscriptionsPlanDashboard from './pages/subscriptions-plans/dashboard';
 import SubscriptionsPlanProfile from './pages/subscriptions-plans/profile';
+import SubscriptionsDashboard from './pages/subscriptions/dashboard';
+import SubscriptionsProfile from './pages/subscriptions/profile';
 import LoginPage from './pages/login/LoginPage';
+import FeaturesDashboard from './pages/features/dashboard';
+import FeatureProfile from './pages/features/profile';
+import RolesDashboard from './pages/roles/dashboard';
+import RoleProfile from './pages/roles/profile';
+import CategoriesDashboard from './pages/categories/dashboard';
+import CategoryProfile from './pages/categories/profile';
+import JobsDashboard from './pages/jobs/dashboard';
+import JobProfile from './pages/jobs/profile';
 
 const Routes = () => {
     return (
@@ -44,6 +54,16 @@ const Routes = () => {
                         <Route path="/courses/details/:id" element={<CourseProfile />} />
                         <Route path="/subscriptions-plans/dashboard" element={<SubscriptionsPlanDashboard  />} />
                         <Route path="/subscriptions-plans/details/:id" element={<SubscriptionsPlanProfile />} />
+                        <Route path="/subscriptions/dashboard" element={<SubscriptionsDashboard  />} />
+                        <Route path="/subscriptions/details/:id" element={<SubscriptionsProfile />} />
+                        <Route path="/features/dashboard" element={<FeaturesDashboard />} />
+                        <Route path="/features/details/:id" element={<FeatureProfile />} />
+                        <Route path="/roles/dashboard" element={<RolesDashboard />} />
+                        <Route path="/roles/details/:id" element={<RoleProfile />} />
+                        <Route path="/categories/dashboard" element={<CategoriesDashboard />} />
+                        <Route path="/categories/details/:id" element={<CategoryProfile />} />
+                        <Route path="/jobs/dashboard" element={<JobsDashboard />} />
+                        <Route path="/jobs/details/:id" element={<JobProfile />} />
                     </Route>
 
                     {/* Catch-all route for pages that don't exist */}

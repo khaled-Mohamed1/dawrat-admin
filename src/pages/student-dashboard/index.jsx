@@ -189,7 +189,7 @@ const StudentDashboard = () => {
                         value={searchTerm}
                         onChange={(e) => {
                             setSearchTerm(e.target.value);
-                            setCurrentPage(1); // Reset to page 1 on new search
+                            setCurrentPage(1);
                         }}
                         className="w-full"
                     />

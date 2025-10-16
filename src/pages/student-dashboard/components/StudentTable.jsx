@@ -5,7 +5,8 @@ import { cn } from '../../../utils/cn';
 
 const StatusBadge = ({ status }) => {
     const getStatusConfig = (status) => {
-        switch (status?.toLowerCase()) {
+        const statusStr = String(status || '').toLowerCase();
+        switch (statusStr) {
             case 'active':
                 return {
                     className: 'bg-green-100 text-green-800 border-green-200',
