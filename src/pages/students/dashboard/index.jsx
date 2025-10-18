@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DashboardLayout from '../../components/ui/DashboardLayout';
-import Button from '../../components/ui/Button';
-import Input from '../../components/ui/Input';
-import Icon from '../../components/AppIcon';
+import DashboardLayout from '../../../components/ui/DashboardLayout';
+import Input from '../../../components/ui/Input';
 import StudentTable from './components/StudentTable';
-import Pagination from '../../components/ui/Pagination';
-import { useDebounce } from '../../hooks/useDebounce';
-import { getStudents } from '../../api/studentService';
-import { toggleUserStatus, deleteUser } from '../../api/userService';
-import ConfirmationModal from '../../components/ui/ConfirmationModal';
+import Pagination from '../../../components/ui/Pagination';
+import { useDebounce } from '../../../hooks/useDebounce';
+import { getStudents } from '../../../api/studentService';
+import { toggleUserStatus, deleteUser } from '../../../api/userService';
+import ConfirmationModal from '../../../components/ui/ConfirmationModal';
 import ResetPasswordModal from './components/ResetPasswordModal.jsx';
 
 const StudentDashboard = () => {

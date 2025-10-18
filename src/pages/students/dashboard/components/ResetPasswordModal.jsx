@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Button from '../../../components/ui/Button';
-import Input from '../../../components/ui/Input';
-import Icon from '../../../components/AppIcon';
-import { resetUserPassword } from '../../../api/userService';
+import Button from '../../../../components/ui/Button';
+import Input from '../../../../components/ui/Input';
+import Icon from '../../../../components/AppIcon';
+import { resetUserPassword } from '../../../../api/userService';
 
 const ResetPasswordModal = ({ isOpen, onClose, student, onSuccess }) => {
     const [newPassword, setNewPassword] = useState('');

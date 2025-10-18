@@ -1,44 +1,12 @@
-import React, { useState } from 'react';
-import Button from '../../../../components/ui/Button';
+import React from 'react';
 import Icon from '../../../../components/AppIcon';
 import { cn } from '../../../../utils/cn';
+import ActionsDropdown from '../../../../components/ui/ActionsDropdown';
 
 // Sub-components
 const StatusBadge = ({ status }) => {
     const isActive = status === 1;
     return <span className={cn('px-2 py-1 text-xs font-medium rounded-full', isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800')}>{isActive ? 'Active' : 'Inactive'}</span>;
-};
-
-const ActionsDropdown = ({ feature, onViewDetails, onEditFeature, onStatusChange, onDeleteFeature }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const handleAction = (action) => { setIsOpen(false); action(); };
-
-    return (
-        <div className="relative">
-            <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)} className="h-8 w-8"><Icon name="MoreVertical" /></Button>
-            {isOpen && (
-                <>
-                    <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
-                    <div className="absolute right-0 top-full mt-1 z-20 w-48 bg-card border rounded-md shadow-lg py-1">
-                        <button onClick={() => handleAction(() => onViewDetails(feature.id))} className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2"><Icon name="Eye" size={14} /> View Details</button>
-                        <button onClick={() => handleAction(() => onEditFeature(feature.id))} className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2"><Icon name="Edit" size={14} /> Edit Feature</button>
-                        <button
-                            onClick={() => handleAction(() => onStatusChange(feature))}
-                            className={cn(
-                                "w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2",
-                                feature.status === 1 ? "text-red-600" : "text-green-600"
-                            )}
-                        >
-                            <Icon name={feature.status === 1 ? "ToggleLeft" : "ToggleRight"} size={14} />
-                            {feature.status === 1 ? "Deactivate" : "Activate"}
-                        </button>
-                        <div className="border-t my-1" />
-                        <button onClick={() => handleAction(() => onDeleteFeature(feature))} className="w-full px-4 py-2 text-left text-sm text-destructive hover:bg-accent flex items-center gap-2"><Icon name="Trash2" size={14} /> Delete</button>
-                    </div>
-                </>
-            )}
-        </div>
-    );
 };
 
 // Main Table Component
@@ -72,7 +40,7 @@ const FeatureTable = ({ features, isLoading, onViewDetails, onEditFeature, onSta
                             <td className="p-4 text-center"><StatusBadge status={feature.status} /></td>
                             <td className="p-4">
                                 <div className="flex items-center justify-center">
-                                    <ActionsDropdown feature={feature} onViewDetails={onViewDetails} onEditFeature={onEditFeature} onStatusChange={onStatusChange} onDeleteFeature={onDeleteFeature} />
+                                    <ActionsDropdown item={feature} onView={onViewDetails} onEdit={onEditFeature} onStatusChange={onStatusChange} onDelete={onDeleteFeature} />
                                 </div>
                             </td>
                         </tr>

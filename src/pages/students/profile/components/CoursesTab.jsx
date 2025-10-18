@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Button from '../../../components/ui/Button';
-import Icon from '../../../components/AppIcon';
-import Pagination from '../../../components/ui/Pagination';
-import { getStudentEnrollments, getStudentFavorites, getStudentCourseDemands } from '../../../api/studentService';
-
+import Button from '../../../../components/ui/Button';
+import Icon from '../../.././../components/AppIcon';
+import Pagination from '../../../../components/ui/Pagination';
+import { getStudentEnrollments, getStudentFavorites, getStudentCourseDemands } from '../../../../api/studentService';
 
 const CoursesTab = ({ studentId }) => {
     const [activeSection, setActiveSection] = useState('enrollments');

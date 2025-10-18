@@ -39,7 +39,6 @@ const Sidebar = ({ isOpen, onToggle }) => {
             subItems: [
                 { title: 'Subscriptions', path: '/subscriptions/dashboard' },
                 { title: 'Subscription Plans', path: '/subscriptions-plans/dashboard' },
-                { title: 'Billing History', path: '/subscriptions/billing' }
             ]
         },
         {
@@ -63,6 +62,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
             icon: 'Settings',
             path: '/settings',
             subItems: [
+                { title: 'Admins', path: '/admins/dashboard' },
                 { title: 'Roles', path: '/roles/dashboard' },
                 { title: 'Features', path: '/features/dashboard' },
                 { title: 'Categories', path: '/categories/dashboard' },

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import Button from '../../../../components/ui/Button';
+import React from 'react';
 import Icon from '../../../../components/AppIcon';
 import { cn } from '../../../../utils/cn';
+import ActionsDropdown from '../../../../components/ui/ActionsDropdown';
 
 // Sub-components
 const StatusBadge = ({ status }) => {
@@ -10,43 +10,6 @@ const StatusBadge = ({ status }) => {
         expired: 'bg-gray-100 text-gray-800', paused: 'bg-yellow-100 text-yellow-800',
     };
     return <span className={cn('px-2 py-1 text-xs font-medium rounded-full', colorMap[status?.toLowerCase()] || 'bg-gray-100')}>{status}</span>;
-};
-
-const ActionsDropdown = ({ subscription, onViewDetails, onTogglePause }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const handleAction = (action) => { setIsOpen(false); action(); };
-
-    const isPaused = subscription.status?.toLowerCase() === 'paused';
-    const canBeToggled = ['active', 'trial', 'paused'].includes(subscription.status?.toLowerCase());
-
-    return (
-        <div className="relative">
-            <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)} className="h-8 w-8"><Icon name="MoreVertical" /></Button>
-            {isOpen && (
-                <>
-                    <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
-                    <div className="absolute right-0 top-full mt-1 z-20 w-40 bg-card border rounded-md shadow-lg py-1">
-                        <button onClick={() => handleAction(() => onViewDetails(subscription.id))} className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2">
-                            <Icon name="Eye" size={14} /> View
-                        </button>
-
-                        {canBeToggled && (
-                            <button
-                                onClick={() => handleAction(() => onTogglePause(subscription))}
-                                className={cn(
-                                    "w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2",
-                                    isPaused ? "text-green-600" : "text-red-600"
-                                )}
-                            >
-                                <Icon name={isPaused ? "Play" : "Pause"} size={14} />
-                                {isPaused ? "Unpause" : "Pause"}
-                            </button>
-                        )}
-                    </div>
-                </>
-            )}
-        </div>
-    );
 };
 
 // Main Table Component
@@ -65,7 +28,7 @@ const SubscriptionTable = ({ subscriptions, isLoading, onViewDetails, onTogglePa
         <div className="bg-card rounded-lg border overflow-hidden">
             <div className="overflow-x-auto">
                 <table className="w-full">
-                    <thead className="bg-muted/50">
+                    <thead className="bg-muted/50 border-b border-border">
                     <tr>
                         <th className="p-4 text-left font-medium text-sm">User</th>
                         <th className="p-4 text-left font-medium text-sm">Plan</th>
@@ -91,7 +54,7 @@ const SubscriptionTable = ({ subscriptions, isLoading, onViewDetails, onTogglePa
                             <td className="p-4 text-center"><StatusBadge status={sub.status} /></td>
                             <td className="p-4">
                                 <div className="flex items-center justify-center">
-                                    <ActionsDropdown subscription={sub} onViewDetails={onViewDetails} onTogglePause={onTogglePause} />
+                                    <ActionsDropdown item={sub} onView={onViewDetails} onTogglePause={onTogglePause} />
                                 </div>
                             </td>
                         </tr>

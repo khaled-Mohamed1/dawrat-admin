@@ -9,12 +9,12 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AnalyticalDashboard from './pages/dashboard';
 import AllUsersDashboard from './pages/all-users-dashboard';
 import UserProfileManagement from './pages/user-profile-management';
-import StudentDashboard from './pages/student-dashboard';
+import StudentDashboard from './pages/students/dashboard';
+import StudentDetails from './pages/students/profile';
 import CourseDashboard from './pages/courses/dashboard';
 import CourseProfile from './pages/courses/profile';
 import TrainerDashboard from './pages/trainers/dashboard';
 import TrainerProfile from './pages/trainers/profile';
-import StudentDetails from './pages/student-details';
 import SubscriptionsPlanDashboard from './pages/subscriptions-plans/dashboard';
 import SubscriptionsPlanProfile from './pages/subscriptions-plans/profile';
 import SubscriptionsDashboard from './pages/subscriptions/dashboard';
@@ -28,6 +28,8 @@ import CategoriesDashboard from './pages/categories/dashboard';
 import CategoryProfile from './pages/categories/profile';
 import JobsDashboard from './pages/jobs/dashboard';
 import JobProfile from './pages/jobs/profile';
+import AdminsDashboard from './pages/admins/dashboard';
+import AdminProfile from './pages/admins/profile';
 
 const Routes = () => {
     return (
@@ -64,6 +66,8 @@ const Routes = () => {
                         <Route path="/categories/details/:id" element={<CategoryProfile />} />
                         <Route path="/jobs/dashboard" element={<JobsDashboard />} />
                         <Route path="/jobs/details/:id" element={<JobProfile />} />
+                        <Route path="/admins/dashboard" element={<AdminsDashboard />} />
+                        <Route path="/admins/details/:id" element={<AdminProfile />} />
                     </Route>
 
                     {/* Catch-all route for pages that don't exist */}

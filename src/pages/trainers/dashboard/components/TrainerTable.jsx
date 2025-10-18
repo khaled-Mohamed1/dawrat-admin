@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import Button from '../../../../components/ui/Button';
+import React from 'react';
 import Icon from '../../../../components/AppIcon';
 import { cn } from '../../../../utils/cn';
+import ActionsDropdown from '../../../../components/ui/ActionsDropdown';
 
 // --- Sub-Components ---
 
@@ -60,48 +60,6 @@ const TrainerAvatar = ({ trainer }) => {
         </div>
     );
 };
-
-const ActionsDropdown = ({ trainer, onViewDetails, onEditTrainer, onStatusChange, onDeleteTrainer, onResetPassword }) => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const handleAction = (action) => {
-        setIsOpen(false);
-        action();
-    };
-
-    return (
-        <div className="relative">
-            <Button variant="ghost" size="sm" iconName="MoreVertical" onClick={() => setIsOpen(!isOpen)} className="h-8 w-8 p-0" />
-            {isOpen && (
-                <>
-                    <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
-                    <div className="absolute right-0 top-8 z-20 w-48 bg-card border rounded-md shadow-lg py-1">
-                        <button onClick={() => handleAction(() => onViewDetails(trainer.id))} className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center"><Icon name="Eye" size={16} className="mr-2" />View Details</button>
-                        <button onClick={() => handleAction(() => onEditTrainer(trainer.id))} className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center"><Icon name="Edit" size={16} className="mr-2" />Edit Trainer</button>
-                        <button onClick={() => handleAction(() => onStatusChange(trainer))} className={cn("w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center", trainer.status === 'Active' ? 'text-orange-600' : 'text-green-600')}>
-                            <Icon
-                                name={trainer.status === 'Active' ? 'UserX' : 'UserCheck'}
-                                size={16}
-                                className="mr-2"
-                            />
-                            {trainer.status === 'Active' ? 'Deactivate' : 'Activate'}
-                        </button>
-                        <button
-                            onClick={() => handleAction(() => onResetPassword(trainer))}
-                            className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center"
-                        >
-                            <Icon name="Key" size={16} className="mr-2" />
-                            Reset Password
-                        </button>
-                        <div className="border-t my-1" />
-                        <button onClick={() => handleAction(() => onDeleteTrainer(trainer))} className="w-full px-4 py-2 text-left text-sm text-destructive hover:bg-accent flex items-center"><Icon name="Trash2" size={16} className="mr-2" />Delete Trainer</button>
-                    </div>
-                </>
-            )}
-        </div>
-    );
-};
-
 
 // --- Main Table Component ---
 
@@ -207,12 +165,12 @@ const TrainerTable = ({
                             <td className="p-4"><StatusBadge status={trainer.status} /></td>
                             <td className="p-4">
                                 <ActionsDropdown
-                                    trainer={trainer}
-                                    onViewDetails={onViewDetails}
-                                    onEditTrainer={onEditTrainer}
+                                    item={trainer}
+                                    onView={onViewDetails}
+                                    onEdit={onEditTrainer}
                                     onStatusChange={onStatusChange}
                                     onResetPassword={onResetPassword}
-                                    onDeleteTrainer={onDeleteTrainer}
+                                    onDelete={onDeleteTrainer}
                                 />
                             </td>
                         </tr>

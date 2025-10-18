@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import Button from '../../../components/ui/Button';
-import Icon from '../../../components/AppIcon';
-import { cn } from '../../../utils/cn';
+import React from 'react';
+import Icon from '../../../../components/AppIcon';
+import { cn } from '../../../../utils/cn';
+import ActionsDropdown from '../../../../components/ui/ActionsDropdown';
 
 const StatusBadge = ({ status }) => {
     const getStatusConfig = (status) => {
@@ -72,23 +72,6 @@ const StudentTable = ({
     onViewDetails,
     onEditStudent, onDeleteStudent, onResetPassword
 }) => {
-    const [showActionMenu, setShowActionMenu] = useState(null);
-    const [isOpen, setIsOpen] = React.useState(false);
-
-    const handleAction = (action) => {
-        setIsOpen(false);
-        action();
-    };
-
-    const toggleActionMenu = (studentId) => {
-        setShowActionMenu(showActionMenu === studentId ? null : studentId);
-    };
-
-    const handleStatusToggle = (student) => {
-        onStatusChange(student);
-        setShowActionMenu(null);
-    };
-
     if (isLoading) {
         return (
             <div className="bg-card rounded-lg border overflow-hidden">
@@ -180,58 +163,20 @@ const StudentTable = ({
                                 <td className="p-4 text-sm text-muted-foreground">
                                     {new Date(student.created_at).toLocaleDateString()}
                                 </td>
-                                <td className="p-4 relative">
-                                    <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        onClick={() => toggleActionMenu(student.id)}
-                                        className="h-8 w-8 p-0"
-                                    >
-                                        <Icon name="MoreVertical" size={16} />
-                                    </Button>
-
-                                    {showActionMenu === student.id && (
-                                        <div className="absolute right-4 top-12 z-10 w-48 bg-card border rounded-lg shadow-lg py-1">
-                                            <button onClick={() => { onViewDetails(student.id); setShowActionMenu(null); }} className="w-full px-4 py-2 text-left text-sm hover:bg-muted flex items-center gap-2">
-                                                <Icon name="Eye" size={16} /> View Details
-                                            </button>
-                                            <button onClick={() => { onEditStudent(student.id); setShowActionMenu(null); }} className="w-full px-4 py-2 text-left text-sm hover:bg-muted flex items-center gap-2">
-                                                <Icon name="Edit" size={16} /> Edit Student
-                                            </button>
-                                            <button
-                                            onClick={() => handleStatusToggle(student)} 
-                                                className={cn(
-                                                    "w-full px-4 py-2 text-left text-sm hover:bg-accent transition-colors flex items-center",
-                                                    student?.status === 'Active' ? 'text-orange-600' : 'text-green-600'
-                                                )}
-                                            >
-                                            {student.status === 'Active' ? <Icon name="UserX" size={16} className="mr-2"/> : <Icon name="UserCheck" size={16} className="mr-2"/>}
-                                            {student.status === 'Active' ? 'Deactivate' : 'Activate'}
-                                            </button>
-                                            <button
-                                                onClick={() => handleAction(() => onResetPassword(student))}
-                                                className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center"
-                                            >
-                                                <Icon name="Key" size={16} className="mr-2" />
-                                                Reset Password
-                                            </button>
-                                            <div className="border-t my-1" />
-                                            <button
-                                                onClick={() => handleAction(() => onDeleteStudent(student))}
-                                                className="w-full px-4 py-2 text-left text-sm hover:bg-accent text-destructive transition-colors flex items-center"
-                                            >
-                                                <Icon name="Trash2" size={16} className="mr-2" />
-                                                Delete Student
-                                            </button>
-                                        </div>
-                                    )}
-
+                                <td className="p-4">
+                                    <ActionsDropdown
+                                        item={student}
+                                        onView={onViewDetails}
+                                        onEdit={onEditStudent}
+                                        onStatusChange={onStatusChange}
+                                        onResetPassword={onResetPassword}
+                                        onDelete={onDeleteStudent}
+                                    />
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-                 {showActionMenu && <div className="fixed inset-0 z-5" onClick={() => setShowActionMenu(null)} />}
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import Button from '../../../../components/ui/Button';
+import React from 'react';
 import Icon from '../../../../components/AppIcon';
 import { cn } from '../../../../utils/cn';
+import ActionsDropdown from '../../../../components/ui/ActionsDropdown';
 
 const StatusBadge = ({ status, timingStatus }) => {
     const statusColors = {
@@ -33,27 +33,6 @@ const StatusBadge = ({ status, timingStatus }) => {
     }
 
     return null;
-};
-
-const ActionsDropdown = ({ course, onViewDetails, onEditCourse, onDeleteCourse }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const handleAction = (action) => { setIsOpen(false); action(); };
-    return (
-        <div className="relative">
-            <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)} className="h-8 w-8"><Icon name="MoreVertical" /></Button>
-            {isOpen && (
-                <>
-                    <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
-                    <div className="absolute right-0 top-8 z-20 w-48 bg-card border rounded-md shadow-lg py-1">
-                        <button onClick={() => handleAction(() => onViewDetails(course.id))} className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2"><Icon name="Eye" />View Details</button>
-                        <button onClick={() => handleAction(() => onEditCourse(course.id))} className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2"><Icon name="Edit" />Edit Course</button>
-                        <div className="border-t my-1" />
-                        <button onClick={() => handleAction(() => onDeleteCourse(course))} className="w-full px-4 py-2 text-left text-sm text-destructive hover:bg-accent flex items-center gap-2"><Icon name="Trash2" />Delete Course</button>
-                    </div>
-                </>
-            )}
-        </div>
-    );
 };
 
 // --- Main Table Component ---
@@ -153,7 +132,7 @@ const CourseTable = ({ courses, isLoading, onViewDetails, onEditCourse, onDelete
                                 <StatusBadge timingStatus={course.timing_status} />
                             </td>
                             <td className="p-4 text-center">
-                                <ActionsDropdown course={course} onViewDetails={onViewDetails} onEditCourse={onEditCourse} onDeleteCourse={onDeleteCourse} />
+                                <ActionsDropdown item={course} onView={onViewDetails} onEdit={onEditCourse} onDelete={onDeleteCourse} />
                             </td>
                         </tr>
                     ))}

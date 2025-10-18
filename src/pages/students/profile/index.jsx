@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
-import DashboardLayout from '../../components/ui/DashboardLayout';
-import Button from '../../components/ui/Button';
-import Icon from '../../components/AppIcon';
+import DashboardLayout from '../../../components/ui/DashboardLayout';
+import Button from '../../../components/ui/Button';
+import Icon from '../../../components/AppIcon';
 import ProfileHeader from './components/ProfileHeader';
 import GeneralInfoTab from './components/GeneralInfoTab';
 import CoursesTab from './components/CoursesTab';
 import InvoicesTab from './components/InvoicesTab';
-import { getStudentDetails, updateStudentDetails } from '../../api/studentService';
+import { getStudentDetails, updateStudentDetails } from '../../../api/studentService';
 
 const StudentDetails = () => {
     const { id } = useParams();

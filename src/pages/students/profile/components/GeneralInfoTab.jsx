@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import Input from '../../../components/ui/Input';
-import Select from '../../../components/ui/Select';
-import Icon from '../../../components/AppIcon';
-import { getCountries } from '../../../api/publicService';
+import Input from '../../../../components/ui/Input';
+import Select from '../../../../components/ui/Select';
+import Icon from '../../../../components/AppIcon';
+import { getCountries } from '../../../../api/publicService';
 
 const GeneralInfoTab = ({ student, setStudent, isEditMode, setHasChanges }) => {
     

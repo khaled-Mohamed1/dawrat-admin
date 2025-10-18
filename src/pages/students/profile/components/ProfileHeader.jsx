@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import Button from '../../../components/ui/Button';
-import Icon from '../../../components/AppIcon';
+import React from 'react';
+import Icon from '../../../../components/AppIcon';
 
 const ProfileHeader = ({ student }) => {
     const getStatusColor = (status) => {

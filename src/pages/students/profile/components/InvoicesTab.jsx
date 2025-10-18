@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Button from '../../../components/ui/Button';
-import Input from '../../../components/ui/Input';
-import Icon from '../../../components/AppIcon';
-import Pagination from '../../../components/ui/Pagination';
-import { useDebounce } from '../../../hooks/useDebounce';
-import { getStudentInvoices } from '../../../api/studentService';
-import { downloadInvoice } from '../../../api/invoiceService';
+import Button from '../../../../components/ui/Button';
+import Input from '../../../../components/ui/Input';
+import Icon from '../../../../components/AppIcon';
+import Pagination from '../../../../components/ui/Pagination';
+import { useDebounce } from '../../../../hooks/useDebounce';
+import { getStudentInvoices } from '../../../../api/studentService';
+import { downloadInvoice } from '../../../../api/invoiceService';
 
 const InvoicesTab = ({ studentId }) => {
     const [invoices, setInvoices] = useState([]);

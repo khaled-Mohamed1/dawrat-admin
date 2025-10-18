@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import Button from '../../../../components/ui/Button';
+import React from 'react';
 import Icon from '../../../../components/AppIcon';
 import { cn } from '../../../../utils/cn';
+import ActionsDropdown from '../../../../components/ui/ActionsDropdown';
 
 const StatusBadge = ({ isActive }) => (
     <span className={cn(
@@ -11,45 +11,6 @@ const StatusBadge = ({ isActive }) => (
         {isActive ? 'Active' : 'Inactive'}
     </span>
 );
-
-const ActionsDropdown = ({ plan, onEdit, onDelete, onView }) => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const handleAction = (action) => {
-        setIsOpen(false);
-        action();
-    };
-
-    return (
-        <div className="relative">
-            <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)} className="h-8 w-8">
-                <Icon name="MoreVertical" />
-            </Button>
-            {isOpen && (
-                <>
-                    <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
-                    <div className="absolute right-0 top-full mt-1 z-20 w-40 bg-card border rounded-md shadow-lg py-1">
-                        <button
-                            onClick={() => handleAction(() => onView(plan.id))}
-                            className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2">
-                            <Icon name="Eye" size={14} /> View
-                        </button>
-
-                        <button onClick={() => handleAction(() => onEdit(plan.id))} className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2">
-                            <Icon name="Edit" size={14} /> Edit
-                        </button>
-
-                        <div className="border-t my-1" />
-
-                        <button onClick={() => handleAction(() => onDelete(plan))} className="w-full px-4 py-2 text-left text-sm text-destructive hover:bg-accent flex items-center gap-2">
-                            <Icon name="Trash2" size={14} /> Delete
-                        </button>
-                    </div>
-                </>
-            )}
-        </div>
-    );
-};
 
 const SubscriptionPlanTable = ({ plans, isLoading, onEdit, onDelete, onView }) => {
 
@@ -114,7 +75,7 @@ const SubscriptionPlanTable = ({ plans, isLoading, onEdit, onDelete, onView }) =
                             <td className="p-4">
                                 <div className="flex items-center justify-center">
                                     <ActionsDropdown
-                                        plan={plan}
+                                        item={plan}
                                         onEdit={onEdit}
                                         onDelete={onDelete}
                                         onView={onView}

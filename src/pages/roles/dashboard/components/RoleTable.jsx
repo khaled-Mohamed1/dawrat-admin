@@ -1,50 +1,7 @@
-import React, { useState } from 'react';
-import Button from '../../../../components/ui/Button';
+import React from 'react';
 import Icon from '../../../../components/AppIcon';
+import ActionsDropdown from '../../../../components/ui/ActionsDropdown';
 
-const ActionsDropdown = ({ role, onView, onEdit, onDelete }) => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const handleAction = (action) => {
-        setIsOpen(false);
-        action();
-    };
-
-    return (
-        <div className="relative">
-            <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)} className="h-8 w-8">
-                <Icon name="MoreVertical" />
-            </Button>
-            {isOpen && (
-                <>
-                    <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
-
-                    <div className="absolute right-0 top-full mt-1 z-20 w-40 bg-card border rounded-md shadow-lg py-1">
-                        <button
-                            onClick={() => handleAction(() => onView(role.id))}
-                            className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2"
-                        >
-                            <Icon name="Eye" size={14} /> View
-                        </button>
-                        <button
-                            onClick={() => handleAction(() => onEdit(role.id))}
-                            className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2"
-                        >
-                            <Icon name="Edit" size={14} /> Edit
-                        </button>
-                        <div className="border-t my-1" />
-                        <button
-                            onClick={() => handleAction(() => onDelete(role))}
-                            className="w-full px-4 py-2 text-left text-sm text-destructive hover:bg-accent flex items-center gap-2"
-                        >
-                            <Icon name="Trash2" size={14} /> Delete
-                        </button>
-                    </div>
-                </>
-            )}
-        </div>
-    );
-};
 
 const RoleTable = ({ roles, isLoading, onView, onEdit, onDelete }) => {
     if (isLoading) {
@@ -57,7 +14,7 @@ const RoleTable = ({ roles, isLoading, onView, onEdit, onDelete }) => {
     return (
         <div className="bg-card rounded-lg border overflow-hidden">
             <table className="w-full">
-                <thead className="bg-muted/50">
+                <thead className="bg-muted/50 border-b border-border">
                 <tr>
                     <th className="p-4 text-left font-medium text-sm">Role Name</th>
                     <th className="p-4 text-center font-medium text-sm">Actions</th>
@@ -70,7 +27,7 @@ const RoleTable = ({ roles, isLoading, onView, onEdit, onDelete }) => {
                         <td className="p-4">
                             <div className="flex items-center justify-center">
                                 <ActionsDropdown
-                                    role={role}
+                                    item={role}
                                     onView={onView}
                                     onEdit={onEdit}
                                     onDelete={onDelete}

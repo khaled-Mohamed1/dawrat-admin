@@ -1,41 +1,9 @@
-import React, { useState } from 'react';
-import Button from '../../../../components/ui/Button';
+import React from 'react';
 import Icon from '../../../../components/AppIcon';
 import { cn } from '../../../../utils/cn';
+import ActionsDropdown from '../../../../components/ui/ActionsDropdown';
 
-const ActionsDropdown = ({ category, onView, onEdit, onDelete, onStatusChange }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const handleAction = (action) => { setIsOpen(false); action(); };
 
-    return (
-        <div className="relative">
-            <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)} className="h-8 w-8">
-                <Icon name="MoreVertical" />
-            </Button>
-            {isOpen && (
-                <>
-                    <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
-                    <div className="absolute right-0 top-full mt-1 z-20 w-48 bg-card border rounded-md shadow-lg py-1">
-                        <button onClick={() => handleAction(() => onView(category.id))} className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2"><Icon name="Eye" size={14} /> View Details</button>
-                        <button onClick={() => handleAction(() => onEdit(category.id))} className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2"><Icon name="Edit" size={14} /> Edit Category</button>
-                        <button
-                            onClick={() => handleAction(() => onStatusChange(category))}
-                            className={cn(
-                                "w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2",
-                                category.status === 1 ? "text-red-600" : "text-green-600"
-                            )}
-                        >
-                            <Icon name={category.status === 1 ? "ToggleLeft" : "ToggleRight"} size={14} />
-                            {category.status === 1 ? "Deactivate" : "Activate"}
-                        </button>
-                        <div className="border-t my-1" />
-                        <button onClick={() => handleAction(() => onDelete(category))} className="w-full px-4 py-2 text-left text-sm text-destructive hover:bg-accent flex items-center gap-2"><Icon name="Trash2" size={14} /> Delete</button>
-                    </div>
-                </>
-            )}
-        </div>
-    );
-};
 const CategoryTable = ({ categories, isLoading, onView, onEdit, onDelete, onStatusChange }) => {
     if (isLoading) {
         return <div className="bg-card rounded-lg border p-4"><div className="space-y-2">{Array.from({ length: 5 }).map((_, i) => <div key={i} className="h-12 bg-gray-200 rounded animate-pulse" />)}</div></div>;
@@ -66,7 +34,7 @@ const CategoryTable = ({ categories, isLoading, onView, onEdit, onDelete, onStat
                         <td className="p-4">
                             <div className="flex items-center justify-center">
                                 <ActionsDropdown
-                                    category={category}
+                                    item={category}
                                     onView={onView}
                                     onEdit={onEdit}
                                     onDelete={onDelete}

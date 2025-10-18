@@ -1,8 +1,8 @@
 import React from 'react';
-import Button from '../../../components/ui/Button';
-import Select from '../../../components/ui/Select';
-import Input from '../../../components/ui/Input';
-import Icon from '../../../components/AppIcon';
+import Button from '../../../../components/ui/Button';
+import Select from '../../../../components/ui/Select';
+import Input from '../../../../components/ui/Input';
+import Icon from '../../../../components/AppIcon';
 
 const FilterPanel = ({
                          hasTrainerAccount,

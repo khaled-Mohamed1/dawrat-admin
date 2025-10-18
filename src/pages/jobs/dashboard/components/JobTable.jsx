@@ -1,41 +1,7 @@
-import React, { useState } from 'react';
-import Button from '../../../../components/ui/Button';
+import React from 'react';
 import Icon from '../../../../components/AppIcon';
 import { cn } from '../../../../utils/cn';
-
-const ActionsDropdown = ({ job, onView, onEdit, onDelete, onStatusChange }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const handleAction = (action) => { setIsOpen(false); action(); };
-
-    return (
-        <div className="relative">
-            <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)} className="h-8 w-8">
-                <Icon name="MoreVertical" />
-            </Button>
-            {isOpen && (
-                <>
-                    <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
-                    <div className="absolute right-0 top-full mt-1 z-20 w-48 bg-card border rounded-md shadow-lg py-1">
-                        <button onClick={() => handleAction(() => onView(job.id))} className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2"><Icon name="Eye" size={14} /> View Details</button>
-                        <button onClick={() => handleAction(() => onEdit(job.id))} className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2"><Icon name="Edit" size={14} /> Edit Job</button>
-                        <button
-                            onClick={() => handleAction(() => onStatusChange(job))}
-                            className={cn(
-                                "w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2",
-                                job.status === 1 ? "text-red-600" : "text-green-600"
-                            )}
-                        >
-                            <Icon name={job.status === 1 ? "ToggleLeft" : "ToggleRight"} size={14} />
-                            {job.status === 1 ? "Deactivate" : "Activate"}
-                        </button>
-                        <div className="border-t my-1" />
-                        <button onClick={() => handleAction(() => onDelete(job))} className="w-full px-4 py-2 text-left text-sm text-destructive hover:bg-accent flex items-center gap-2"><Icon name="Trash2" size={14} /> Delete</button>
-                    </div>
-                </>
-            )}
-        </div>
-    );
-};
+import ActionsDropdown from '../../../../components/ui/ActionsDropdown';
 
 const JobTable = ({ jobs, isLoading, onView, onEdit, onDelete, onStatusChange }) => {
     if (isLoading) {
@@ -69,7 +35,7 @@ const JobTable = ({ jobs, isLoading, onView, onEdit, onDelete, onStatusChange })
                         <td className="p-4">
                             <div className="flex items-center justify-center">
                                 <ActionsDropdown
-                                    job={job}
+                                    item={job}
                                     onView={onView}
                                     onEdit={onEdit}
                                     onDelete={onDelete}
