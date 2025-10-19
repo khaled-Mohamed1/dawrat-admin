@@ -55,7 +55,11 @@ const Sidebar = ({ isOpen, onToggle }) => {
             title: 'Orders',
             icon: 'ShoppingCart',
             path: '/orders',
-            subItems: []
+            subItems: [
+                { title: 'Orders', path: '/orders/dashboard' },
+                { title: 'Invoices', path: '/invoices/dashboard' },
+                { title: 'Transactions', path: '/transactions/dashboard' },
+            ]
         },
         {
             title: 'Settings',

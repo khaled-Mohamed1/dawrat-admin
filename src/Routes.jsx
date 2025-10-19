@@ -30,6 +30,12 @@ import JobsDashboard from './pages/jobs/dashboard';
 import JobProfile from './pages/jobs/profile';
 import AdminsDashboard from './pages/admins/dashboard';
 import AdminProfile from './pages/admins/profile';
+import OrdersDashboard from './pages/orders/dashboard';
+import OrderProfile from './pages/orders/profile';
+import InvoicesDashboard from './pages/invoices/dashboard';
+import InvoiceProfile from './pages/invoices/profile';
+import TransactionsDashboard from './pages/transactions/dashboard';
+import TransactionProfile from './pages/transactions/profile';
 
 const Routes = () => {
     return (
@@ -68,6 +74,12 @@ const Routes = () => {
                         <Route path="/jobs/details/:id" element={<JobProfile />} />
                         <Route path="/admins/dashboard" element={<AdminsDashboard />} />
                         <Route path="/admins/details/:id" element={<AdminProfile />} />
+                        <Route path="/orders/dashboard" element={<OrdersDashboard />} />
+                        <Route path="/orders/details/:id" element={<OrderProfile />} />
+                        <Route path="/invoices/dashboard" element={<InvoicesDashboard />} />
+                        <Route path="/invoices/details/:id" element={<InvoiceProfile />} />
+                        <Route path="/transactions/dashboard" element={<TransactionsDashboard />} />
+                        <Route path="/transactions/details/:id" element={<TransactionProfile />} />
                     </Route>
 
                     {/* Catch-all route for pages that don't exist */}

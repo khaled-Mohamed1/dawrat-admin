@@ -19,7 +19,9 @@ const ActionsDropdown = ({
                              onDelete,
                              onStatusChange,
                              onResetPassword,
-                             onTogglePause
+                             onTogglePause,
+                             onResend,
+                             resendingId
                          }) => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -74,6 +76,24 @@ const ActionsDropdown = ({
                         {onEdit && (
                             <button onClick={() => handleAction(() => onEdit(item.id))} className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2">
                                 <Icon name="Edit" size={14} /> Edit
+                            </button>
+                        )}
+
+                        {onResend && (
+                            <button
+                                onClick={() => handleAction(() => onResend(item))}
+                                className="w-full px-4 py-2 text-left text-sm hover:bg-accent flex items-center gap-2"
+                                disabled={resendingId === item.id}
+                            >
+                                {resendingId === item.id ? (
+                                    <>
+                                        <Icon name="Loader" size={14} className="animate-spin" /> Resending...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Icon name="Send" size={14} /> Resend Invoice
+                                    </>
+                                )}
                             </button>
                         )}
 
