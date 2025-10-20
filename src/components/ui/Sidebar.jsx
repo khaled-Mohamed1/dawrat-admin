@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Icon from '../AppIcon';
 import Button from './Button';
 
 const Sidebar = ({ isOpen, onToggle }) => {
     const location = useLocation();
+    const [expandedItems, setExpandedItems] = useState({});
 
     const menuItems = [
         {
@@ -71,23 +72,40 @@ const Sidebar = ({ isOpen, onToggle }) => {
                 { title: 'Features', path: '/features/dashboard' },
                 { title: 'Categories', path: '/categories/dashboard' },
                 { title: 'Jobs', path: '/jobs/dashboard' },
+                { title: 'Contact Us', path: '/contact-us/dashboard' },
+                { title: 'Conditions', path: '/settings/dashboard' },
+                { title: 'Vat Rates', path: '/vat-rates/dashboard' },
                 { title: 'Sections', path: '/sections/dashboard' },
             ]
         }
     ];
 
-    const [expandedItems, setExpandedItems] = useState({});
+    useEffect(() => {
+        const activeParentIndex = menuItems.findIndex(item =>
+            item.subItems && item.subItems.some(subItem => isActivePath(subItem.path))
+        );
+
+        if (activeParentIndex !== -1) {
+            setExpandedItems({ [activeParentIndex]: true });
+        } else {
+            // Optional: If you navigate to a top-level item, you might want to close all sub-menus.
+            // setExpandedItems({});
+        }
+    }, [location.pathname]);
 
     const toggleExpanded = (index) => {
         setExpandedItems(prev => ({
             ...prev,
-            [index]: !prev?.[index]
+            [index]: !prev[index]
         }));
     };
-
     const isActivePath = (path) => {
-        return location?.pathname === path || location?.pathname?.startsWith(path + '/');
+        if (path === '/dashboard') {
+            return location.pathname === path;
+        }
+        return location.pathname === path || location.pathname.startsWith(path + '/');
     };
+
 
     return (
         <>
@@ -102,10 +120,10 @@ const Sidebar = ({ isOpen, onToggle }) => {
             <aside
                 className={`fixed top-0 left-0 z-50 w-64 h-full bg-card border-r border-border transition-transform duration-300 ease-in-out ${
                     isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-                }`}
+                } flex flex-col`}
             >
                 {/* Sidebar Header */}
-                <div className="flex items-center justify-between p-4 border-b border-border">
+                <div className="flex-shrink-0 flex items-center justify-between p-4 border-b border-border">
                     <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                             <Icon name="BarChart3" size={20} color="white" />
@@ -123,7 +141,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
                 </div>
 
                 {/* Navigation Menu */}
-                <nav className="p-4">
+                <nav className="p-4 flex-1 overflow-y-auto">
                     <ul className="space-y-1">
                         {menuItems?.map((item, index) => (
                             <li key={index}>

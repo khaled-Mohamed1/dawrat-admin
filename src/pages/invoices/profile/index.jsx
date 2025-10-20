@@ -47,7 +47,7 @@ const InvoiceDetails = () => {
                         <div className="h-9 w-40 bg-gray-200 rounded-md"></div>
                         <div className="h-9 w-44 bg-gray-200 rounded-md"></div>
                     </div>
-                    <div className="bg-card rounded-lg border max-w-4xl mx-auto p-8 sm:p-12 space-y-8">
+                    <div className="bg-card rounded-lg border p-8 sm:p-12 space-y-8">
                         <div className="flex justify-between">
                             <div className="h-12 w-1/3 bg-gray-200 rounded"></div>
                             <div className="h-12 w-1/4 bg-gray-200 rounded"></div>
@@ -119,7 +119,7 @@ const InvoiceDetails = () => {
                 </div>
 
                 {/* Invoice Card */}
-                <div className="bg-card rounded-lg border max-w-4xl mx-auto p-8 sm:p-12">
+                <div className="bg-card rounded-lg border p-8 sm:p-12">
                     <div className="flex justify-between items-start">
                         <div>
                             <h1 className="text-2xl font-bold text-foreground">Invoice</h1>

@@ -36,6 +36,12 @@ import InvoicesDashboard from './pages/invoices/dashboard';
 import InvoiceProfile from './pages/invoices/profile';
 import TransactionsDashboard from './pages/transactions/dashboard';
 import TransactionProfile from './pages/transactions/profile';
+import ContactUsDashboard from './pages/contact-us/dashboard';
+import ContactUsProfile from './pages/contact-us/profile';
+import SettingsDashboard from './pages/settings/dashboard';
+import SettingProfile from './pages/settings/profile';
+import VatRatesDashboard from './pages/vat-rates/dashboard';
+import VatRateProfile from './pages/vat-rates/profile';
 
 const Routes = () => {
     return (
@@ -80,6 +86,12 @@ const Routes = () => {
                         <Route path="/invoices/details/:id" element={<InvoiceProfile />} />
                         <Route path="/transactions/dashboard" element={<TransactionsDashboard />} />
                         <Route path="/transactions/details/:id" element={<TransactionProfile />} />
+                        <Route path="/contact-us/dashboard" element={<ContactUsDashboard />} />
+                        <Route path="/contact-us/details/:id" element={<ContactUsProfile />} />
+                        <Route path="/settings/dashboard" element={<SettingsDashboard />} />
+                        <Route path="/settings/details/:id" element={<SettingProfile />} />
+                        <Route path="/vat-rates/dashboard" element={<VatRatesDashboard />} />
+                        <Route path="/vat-rates/details/:id" element={<VatRateProfile />} />
                     </Route>
 
                     {/* Catch-all route for pages that don't exist */}

@@ -19,7 +19,7 @@ const TransactionTable = ({ transactions, isLoading, onView }) => {
     return (
         <div className="bg-card rounded-lg border overflow-hidden">
             <table className="w-full">
-                <thead className="bg-muted/50">
+                <thead className="bg-muted/50 border-b">
                 <tr>
                     <th className="p-3 text-left font-medium text-sm">Transaction #</th>
                     <th className="p-3 text-left font-medium text-sm">Related To</th>

@@ -29,7 +29,7 @@ const TransactionDetails = () => {
             <DashboardLayout>
                 <div className="space-y-6 animate-pulse">
                     <div className="h-9 w-40 bg-gray-200 rounded-md"></div>
-                    <div className="bg-card rounded-lg border p-6 max-w-2xl mx-auto space-y-4">
+                    <div className="bg-card rounded-lg border p-6 space-y-4">
                         <div className="h-7 w-1/2 bg-gray-200 rounded"></div>
                         <div className="h-4 w-1/3 bg-gray-200 rounded"></div>
                         <div className="grid grid-cols-2 gap-6 pt-6 border-t">
@@ -81,7 +81,7 @@ const TransactionDetails = () => {
                     )}
                 </div>
 
-                <div className="bg-card rounded-lg border p-6 max-w-4xl mx-auto">
+                <div className="bg-card rounded-lg border p-6">
                     <div className="flex justify-between items-start">
                         <div>
                             <h2 className="text-2xl font-bold mb-1">Transaction #{transaction.transaction_number}</h2>
