@@ -42,6 +42,16 @@ import SettingsDashboard from './pages/settings/dashboard';
 import SettingProfile from './pages/settings/profile';
 import VatRatesDashboard from './pages/vat-rates/dashboard';
 import VatRateProfile from './pages/vat-rates/profile';
+import CommissionsDashboard from './pages/commissions/dashboard';
+import CommissionProfile from './pages/commissions/profile';
+import RevenueDashboard from './pages/revenue/dashboard';
+import RevenueProfile from './pages/revenue/profile';
+import PayoutsDashboard from './pages/payouts/dashboard';
+import PayoutProfile from './pages/payouts/profile';
+import CenterRequestsDashboard from "./pages/center-requests/dashboard";
+import CenterRequestProfile from "./pages/center-requests/profile";
+import AdsDashboard from "./pages/ads/dashboard";
+import AdProfile from "./pages/ads/profile";
 
 const Routes = () => {
     return (
@@ -92,6 +102,16 @@ const Routes = () => {
                         <Route path="/settings/details/:id" element={<SettingProfile />} />
                         <Route path="/vat-rates/dashboard" element={<VatRatesDashboard />} />
                         <Route path="/vat-rates/details/:id" element={<VatRateProfile />} />
+                        <Route path="/commissions/dashboard" element={<CommissionsDashboard />} />
+                        <Route path="/commissions/details/:id" element={<CommissionProfile />} />
+                        <Route path="/revenue/dashboard" element={<RevenueDashboard />} />
+                        <Route path="/revenue/details/:id" element={<RevenueProfile />} />
+                        <Route path="/payouts/dashboard" element={<PayoutsDashboard />} />
+                        <Route path="/payouts/details/:id" element={<PayoutProfile />} />
+                        <Route path="/center-requests/dashboard" element={<CenterRequestsDashboard />} />
+                        <Route path="/center-requests/details/:id" element={<CenterRequestProfile />} />
+                        <Route path="/ads/dashboard" element={<AdsDashboard />} />
+                        <Route path="/ads/details/:id" element={<AdProfile />} />
                     </Route>
 
                     {/* Catch-all route for pages that don't exist */}

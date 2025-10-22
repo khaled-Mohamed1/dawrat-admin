@@ -147,6 +147,23 @@ const SettingsProfile = () => {
 
                     {setting.key !== 'payout_schedule' ? (
                         <div className="space-y-6">
+
+                            {(setting.key === 'finance_conditions_trainer' || setting.key === 'finance_conditions_center') && (
+                                <div className="bg-blue-50 border border-blue-200 text-blue-800 text-sm rounded-lg p-4">
+                                    <p className="font-semibold mb-2 flex items-center gap-2">
+                                        <Icon name="Info" size={16} />
+                                        Available Placeholders
+                                    </p>
+                                    <p className="mb-2">You can use these placeholders in the content below. They will be replaced with real data for the user.</p>
+                                    <div className="flex flex-wrap gap-x-4 gap-y-1 font-mono">
+                                        <code>{'{vat}'}</code>
+                                        <code>{'{frequency}'}</code>
+                                        <code>{'{anchor_day}'}</code>
+                                        <code>{'{free_plan_day}'}</code>
+                                    </div>
+                                </div>
+                            )}
+
                             <div>
                                 <label className="text-sm font-medium text-foreground mb-2 block">Content (EN)</label>
                                 <textarea

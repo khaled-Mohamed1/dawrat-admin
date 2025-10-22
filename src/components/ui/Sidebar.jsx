@@ -22,7 +22,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
                 { title: 'All Users', path: '/all-users-dashboard' },
                 { title: 'Students', path: '/student-dashboard' },
                 { title: 'Trainers', path: '/trainers/dashboard' },
-                { title: 'Centers', path: '/users/centers' }
+                { title: 'Centers', path: '/users/centers' },
+                { title: 'Centers Request', path: '/center-requests/dashboard' },
             ]
         },
         {
@@ -47,9 +48,9 @@ const Sidebar = ({ isOpen, onToggle }) => {
             icon: 'DollarSign',
             path: '/revenue',
             subItems: [
-                { title: 'Revenue Overview', path: '/revenue' },
-                { title: 'Payout Management', path: '/revenue/payouts' },
-                { title: 'Financial Reports', path: '/revenue/reports' }
+                { title: 'Commissions', path: '/commissions/dashboard' },
+                { title: 'Revenue Overview', path: '/revenue/dashboard' },
+                { title: 'Payout Management', path: '/payouts/dashboard' },
             ]
         },
         {
@@ -69,6 +70,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
             subItems: [
                 { title: 'Admins', path: '/admins/dashboard' },
                 { title: 'Roles', path: '/roles/dashboard' },
+                { title: 'Ads', path: '/ads/dashboard' },
                 { title: 'Features', path: '/features/dashboard' },
                 { title: 'Categories', path: '/categories/dashboard' },
                 { title: 'Jobs', path: '/jobs/dashboard' },

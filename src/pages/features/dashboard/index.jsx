@@ -139,9 +139,9 @@ const FeaturesDashboard = () => {
                         <h1 className="text-3xl font-bold">Features Management</h1>
                         <p className="text-muted-foreground mt-1">Configure features for subscription plans.</p>
                     </div>
-                    <Button onClick={() => navigate('/features/details/new')} iconName="Plus">
-                        Add New Feature
-                    </Button>
+                    {/*<Button onClick={() => navigate('/features/details/new')} iconName="Plus">*/}
+                    {/*    Add New Feature*/}
+                    {/*</Button>*/}
                 </div>
 
                 <div className="bg-card rounded-lg border p-4">

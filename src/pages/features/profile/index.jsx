@@ -113,7 +113,9 @@ const FeatureProfile = () => {
         { label: 'Max Active Courses', value: 'max_active_courses' },
         { label: 'Commission Rate (%)', value: 'commission_rate_pct' },
         { label: 'Max Linked Centers', value: 'max_linked_centers' },
-        { label: 'Max Active Users', value: 'max_active_users' }
+        { label: 'Max Active Users', value: 'max_active_users' },
+        { label: 'Max Ads', value: 'max_ads' },
+        { label: 'Max Coupon', value: 'max_coupons' }
     ];
 
     // --- RENDER STATES ---
@@ -172,7 +174,7 @@ const FeatureProfile = () => {
                         <Button variant="ghost" size="sm" onClick={() => navigate('/features/dashboard')} className="flex items-center gap-2">
                             <Icon name="ArrowLeft" size={16} /> Back to Features
                         </Button>
-                        <Button onClick={enableEditMode} iconName="Edit">Edit Feature</Button>
+                        {/*<Button onClick={enableEditMode} iconName="Edit">Edit Feature</Button>*/}
                     </div>
                     <div className="bg-card rounded-lg border p-6 space-y-6">
                         <InfoItem label="Name (EN)"><h2 className="text-xl font-bold">{feature.name_en}</h2></InfoItem>
