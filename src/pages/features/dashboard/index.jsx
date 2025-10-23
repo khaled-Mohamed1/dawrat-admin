@@ -45,10 +45,8 @@ const FeaturesDashboard = () => {
         } finally {
             setIsLoading(false);
         }
-        // Its dependencies are the values that should trigger a refetch.
     }, [currentPage, debouncedSearch, filters.status]);
 
-    // **THE FIX, PART 2**: The useEffect now calls the function defined above.
     useEffect(() => {
         fetchFeatures();
     }, [fetchFeatures]);

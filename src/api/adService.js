@@ -136,3 +136,10 @@ export const rejectAd = async (adId, { rejection_reason }) => {
         throw error.response?.data || error;
     }
 };
+
+export const getAllAds = async () => {
+    try {
+        const response = await apiClient.get(`${BASE_URL}/all-ads`);
+        return response.data.data || [];
+    } catch (error) { return []; }
+};

@@ -32,6 +32,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
             path: '/courses',
             subItems: [
                 { title: 'Courses', path: '/courses/dashboard' },
+                { title: 'Course Demands', path: '/course-requests/dashboard' },
             ]
         },
         {
@@ -71,6 +72,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
                 { title: 'Admins', path: '/admins/dashboard' },
                 { title: 'Roles', path: '/roles/dashboard' },
                 { title: 'Ads', path: '/ads/dashboard' },
+                { title: 'Coupons', path: '/coupons/dashboard' },
                 { title: 'Features', path: '/features/dashboard' },
                 { title: 'Categories', path: '/categories/dashboard' },
                 { title: 'Jobs', path: '/jobs/dashboard' },

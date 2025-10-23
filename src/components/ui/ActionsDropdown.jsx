@@ -21,7 +21,8 @@ const ActionsDropdown = ({
                              onResetPassword,
                              onTogglePause,
                              onResend,
-                             resendingId
+                             resendingId,
+                             onClose
                          }) => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -113,6 +114,12 @@ const ActionsDropdown = ({
                         {onResetPassword && (
                             <button onClick={() => handleAction(() => onResetPassword(item))} className="w-full px-4 py-2 text-left text-sm text-blue-600 hover:bg-accent flex items-center gap-2">
                                 <Icon name="Key" size={14} /> Reset Password
+                            </button>
+                        )}
+
+                        {onClose && (
+                            <button onClick={() => handleAction(() => onClose(item))} className="w-full px-4 py-2 text-left text-sm text-yellow-600 hover:bg-accent flex items-center gap-2">
+                                <Icon name="Archive" size={14} /> Close Request
                             </button>
                         )}
 

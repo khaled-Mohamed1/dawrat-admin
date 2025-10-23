@@ -52,6 +52,13 @@ import CenterRequestsDashboard from "./pages/center-requests/dashboard";
 import CenterRequestProfile from "./pages/center-requests/profile";
 import AdsDashboard from "./pages/ads/dashboard";
 import AdProfile from "./pages/ads/profile";
+import CouponsDashboard from "./pages/coupons/dashboard";
+import CouponProfile from "./pages/coupons/profile";
+import SectionsDashboard from "./pages/sections/dashboard";
+import SectionProfile from "./pages/sections/profile";
+import CourseRequestsDashboard from "./pages/course-requests/dashboard";
+import CourseRequestProfile from "./pages/course-requests/profile";
+
 
 const Routes = () => {
     return (
@@ -112,6 +119,13 @@ const Routes = () => {
                         <Route path="/center-requests/details/:id" element={<CenterRequestProfile />} />
                         <Route path="/ads/dashboard" element={<AdsDashboard />} />
                         <Route path="/ads/details/:id" element={<AdProfile />} />
+                        <Route path="/coupons/dashboard" element={<CouponsDashboard />} />
+                        <Route path="/coupons/details/:id" element={<CouponProfile />} />
+                        <Route path="/sections/dashboard" element={<SectionsDashboard />} />
+                        <Route path="/sections/details/:id" element={<SectionProfile />} />
+                        <Route path="/course-requests/dashboard" element={<CourseRequestsDashboard />} />
+                        <Route path="/course-requests/details/:id" element={<CourseRequestProfile />} />
+
                     </Route>
 
                     {/* Catch-all route for pages that don't exist */}

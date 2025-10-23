@@ -204,3 +204,11 @@ export const deleteCourseReview = async (courseId, reviewId) => {
         throw error.response?.data || error;
     }
 };
+
+export const getAllCourses = async () => {
+    try {
+        // Assuming you have an endpoint for this, or we can use the paginated one
+        const response = await apiClient.get('/admin/courses/all-courses');
+        return response.data.data || [];
+    } catch (error) { return []; }
+};
